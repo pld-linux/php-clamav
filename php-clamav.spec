@@ -8,7 +8,7 @@ License:	PHP License
 Group:		Development/Languages/PHP
 Source0:	http://downloads.sourceforge.net/php-clamav/php-clamav_%{version}.tar.gz
 # Source0-md5:	7812fb38f75b76a212df335d18a72071
-URL:		http://phpclamavlib.org/
+URL:		http://php-clamav.sourceforge.net/
 BuildRequires:	%{php_name}-devel
 BuildRequires:	clamav-devel
 BuildRequires:	rpmbuild(macros) >= 1.666
