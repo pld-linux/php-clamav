@@ -8,6 +8,7 @@ License:	PHP License
 Group:		Development/Languages/PHP
 Source0:	http://downloads.sourceforge.net/php-clamav/php-clamav_%{version}.tar.gz
 # Source0-md5:	7812fb38f75b76a212df335d18a72071
+Source1:	%{modname}.ini
 URL:		http://php-clamav.sourceforge.net/
 BuildRequires:	%{php_name}-devel
 BuildRequires:	clamav-devel
@@ -50,17 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
-cat <<'EOF' > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
-; Enable %{modname} extension module
-extension=%{modname}.so
-
-[clamav]
-clamav.dbpath="/var/lib/clamav"
-clamav.maxreclevel=0
-clamav.maxfiles=0
-clamav.archivememlim=0
-clamav.maxfilesize=0
-EOF
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
 
 %clean
 rm -rf $RPM_BUILD_ROOT
