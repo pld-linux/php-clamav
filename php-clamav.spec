@@ -2,21 +2,19 @@
 %define		modname		clamav
 Summary:	Provides a interface to ClamAV for PHP
 Name:		%{php_name}-%{modname}
-Version:	0.13
-Release:	0.1
+Version:	0.15.7
+Release:	1
 License:	PHP License
 Group:		Development/Languages/PHP
-Source0:	php-clamavlib-%{version}.tar.gz
-# Source0-md5:	5ccb9daa8ed4181a9fafae5dd9297395
-Patch0:		php-clamavlib-clamav-0.93_build_fix.diff
-Patch1:		php-clamavlib-clamav-0.94_build_fix.diff
+Source0:	http://downloads.sourceforge.net/php-clamav/php-clamav_%{version}.tar.gz
+# Source0-md5:	7812fb38f75b76a212df335d18a72071
 URL:		http://phpclamavlib.org/
-BuildRequires:	clamav-devel
 BuildRequires:	%{php_name}-devel
+BuildRequires:	clamav-devel
 BuildRequires:	rpmbuild(macros) >= 1.666
 %{?requires_php_extension}
-Provides:	php(MODULE_NAME) = %{version}
 Requires:	clamav
+Provides:	php(%{modname}) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -25,9 +23,7 @@ scanning features in your PHP scripts. It uses the Clam Antivirus API
 (libclamav) for virus scanning.
 
 %prep
-%setup -q -n php-clamavlib-%{version}
-%patch0 -p0
-%patch1 -p0
+%setup -q -n php-clamav-%{version}
 
 %build
 phpize
@@ -48,6 +44,7 @@ export NO_INTERACTION=1 REPORT_EXIT_STATUS=1 MALLOC_CHECK_=2
 %endif
 
 %install
+rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	EXTENSION_DIR=%{php_extensiondir} \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
@@ -65,6 +62,9 @@ clamav.archivememlim=0
 clamav.maxfilesize=0
 EOF
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post
 %php_webserver_restart
 
@@ -75,6 +75,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES CREDITS EXPERIMENTAL INSTALL clamav.php
+%doc CHANGES CREDITS INSTALL phpclamav_test.php
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
