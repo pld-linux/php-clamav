@@ -1,0 +1,21 @@
+--- clamav.c	2008-09-04 15:07:25.000000000 +0200
++++ clamav.c.oden	2008-09-04 15:06:49.000000000 +0200
+@@ -219,8 +219,6 @@ PHP_MINIT_FUNCTION(clamav)
+                             CONST_CS | CONST_PERSISTENT);
+     REGISTER_LONG_CONSTANT("CL_ETMPFILE", CL_ETMPFILE,
+                             CONST_CS | CONST_PERSISTENT);
+-    REGISTER_LONG_CONSTANT("CL_EFSYNC", CL_EFSYNC,
+-                            CONST_CS | CONST_PERSISTENT);
+     REGISTER_LONG_CONSTANT("CL_EMEM", CL_EMEM,
+                             CONST_CS | CONST_PERSISTENT);
+     REGISTER_LONG_CONSTANT("CL_EOPEN", CL_EOPEN,
+@@ -547,9 +545,6 @@ PHP_FUNCTION(cl_pretcode)
+ 		case CL_ETMPFILE:
+ 			RETURN_STRING("tmpfile() failed", 1);
+ 			break;
+-		case CL_EFSYNC:
+-			RETURN_STRING("fsync() failed", 1);
+-			break;
+ 		case CL_EMEM:
+ 			RETURN_STRING("memory allocation error", 1);
+ 			break;
